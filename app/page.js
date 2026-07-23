@@ -61,6 +61,7 @@ const MOODS = ["??", "??", "??", "??", "??"];
 const STORAGE_KEY = "heartlist-state-v2";
 const DB_NAME = "heartlist-offline-db";
 const DB_STORE = "app";
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 function openDatabase() {
   return new Promise((resolve, reject) => {
@@ -176,7 +177,7 @@ export default function Heartlist() {
         if (saved && saved.version === 2) setState({ ...DEFAULT_STATE, ...saved, profile: { ...DEFAULT_STATE.profile, ...saved.profile } });
       } catch {}
       setReady(true);
-      if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => {});
+      if ("serviceWorker" in navigator) navigator.serviceWorker.register(`${BASE_PATH}/sw.js`).catch(() => {});
     })();
   }, []);
 
@@ -284,7 +285,7 @@ export default function Heartlist() {
   return (
     <div className={`app theme-${state.theme}`}>
       <aside className="sidebar">
-        <button className="brand" onClick={() => go("home")}><img className="brand-mark" src="/logo.svg" alt=""/><div><b>Clover</b><small>MAKE LOVER CLOSER</small></div></button>
+        <button className="brand" onClick={() => go("home")}><img className="brand-mark" src={`${BASE_PATH}/logo.svg`} alt=""/><div><b>Clover</b><small>MAKE LOVER CLOSER</small></div></button>
         <nav>{NAV.map(([id, icon, label]) => <button key={id} className={view === id ? "active" : ""} onClick={() => go(id)}><i>{icon}</i><span>{label}</span>{id === "tasks" && <em>{100 - completed.length}</em>}</button>)}</nav>
         <div className="sidebar-card">
           <span className="avatars"><b>{state.profile.nameA[0]}</b><b>{state.profile.nameB[0]}</b></span>
@@ -295,7 +296,7 @@ export default function Heartlist() {
       </aside>
 
       <main>
-        <header className="mobile-header"><button className="brand" onClick={() => go("home")}><img className="brand-mark" src="/logo.svg" alt=""/><div><b>Clover</b><small>MAKE LOVER CLOSER</small></div></button><button className="mini-avatar" onClick={() => go("settings")}>{state.profile.nameA[0]}{state.profile.nameB[0]}</button></header>
+        <header className="mobile-header"><button className="brand" onClick={() => go("home")}><img className="brand-mark" src={`${BASE_PATH}/logo.svg`} alt=""/><div><b>Clover</b><small>MAKE LOVER CLOSER</small></div></button><button className="mini-avatar" onClick={() => go("settings")}>{state.profile.nameA[0]}{state.profile.nameB[0]}</button></header>
 
         {view === "home" && <div className="page home-page">
           <section className="welcome">

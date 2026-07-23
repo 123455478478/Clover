@@ -1,5 +1,7 @@
 const CACHE = "clover-v2";
-const SHELL = ["/", "/manifest.webmanifest", "/logo.svg"];
+const SCOPE_PATH = new URL(self.registration.scope).pathname.replace(/\/$/, "");
+const scoped = path => `${SCOPE_PATH}${path}`;
+const SHELL = [scoped("/"), scoped("/manifest.webmanifest"), scoped("/logo.svg")];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
 });
@@ -12,5 +14,5 @@ self.addEventListener("fetch", event => {
     const copy = response.clone();
     caches.open(CACHE).then(cache => cache.put(event.request, copy));
     return response;
-  }).catch(() => caches.match(event.request).then(hit => hit || caches.match("/"))));
+  }).catch(() => caches.match(event.request).then(hit => hit || caches.match(scoped("/")))));
 });
