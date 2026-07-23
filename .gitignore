@@ -1,0 +1,10 @@
+.next/
+node_modules/
+.open-next/
+*.log
+.env*
+.sites-git/
+.pnpm-store/
+out/
+dist/
+.vinext/

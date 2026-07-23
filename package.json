@@ -1,0 +1,25 @@
+{
+  "name": "clover",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vinext dev",
+    "build": "vinext build && node scripts/stage-sites.mjs",
+    "start": "vinext start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.4",
+    "@vitejs/plugin-rsc": "^0.5.29",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.0.0",
+    "react-server-dom-webpack": "^19.2.8",
+    "vinext": "1.0.0-beta.3",
+    "vite": "^8.1.5"
+  }
+}

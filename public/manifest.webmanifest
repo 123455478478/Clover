@@ -1,0 +1,13 @@
+{
+  "name": "Clover ? Make lover closer",
+  "short_name": "Clover",
+  "description": "????????????????",
+  "lang": "zh-CN",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F4EF",
+  "theme_color": "#F7F4EF",
+  "icons": [
+    { "src": "/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
