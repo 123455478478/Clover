@@ -50,11 +50,11 @@ const DEFAULT_STATE = {
 };
 
 const NAV = [
-  ["home", "⌂", "首页"],
-  ["tasks", "✓", "清单"],
-  ["memories", "◇", "回忆"],
-  ["ledger", "¥", "账本"],
-  ["settings", "⚙", "我们"]
+  ["home", "home", "首页"],
+  ["tasks", "checklist", "清单"],
+  ["memories", "sparkles", "回忆"],
+  ["ledger", "wallet", "账本"],
+  ["settings", "couple", "我们"]
 ];
 
 const MOODS = ["🥰", "😌", "🤩", "🥹", "🫶"];
@@ -151,7 +151,12 @@ function Icon({ name }) {
     heart: <path d="M20.8 5.8c-2.1-2.2-5.5-2.2-7.6 0L12 7l-1.2-1.2a5.3 5.3 0 0 0-7.6 7.4L12 22l8.8-8.8a5.3 5.3 0 0 0 0-7.4Z"/>,
     arrow: <path d="m9 18 6-6-6-6"/>,
     download: <><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 19h16"/></>,
-    upload: <><path d="M12 17V5m0 0 4 4m-4-4L8 9"/><path d="M4 21h16"/></>
+    upload: <><path d="M12 17V5m0 0 4 4m-4-4L8 9"/><path d="M4 21h16"/></>,
+    home: <><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9M9 20v-6h6v6"/></>,
+    checklist: <><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></>,
+    sparkles: <><path d="m12 3 1.15 3.2L16 7.5l-2.85 1.3L12 12l-1.15-3.2L8 7.5l2.85-1.3L12 3Z"/><path d="m18.5 13 .75 2.1L21 16l-1.75.9L18.5 19l-.75-2.1L16 16l1.75-.9.75-2.1ZM5 12l.65 1.85L7.5 14.5l-1.85.65L5 17l-.65-1.85-1.85-.65 1.85-.65L5 12Z"/></>,
+    wallet: <><path d="M4 6.5h14a2 2 0 0 1 2 2V19H4a2 2 0 0 1-2-2V6a3 3 0 0 1 3-3h12"/><path d="M15 11h7v5h-7a2.5 2.5 0 0 1 0-5Z"/></>,
+    couple: <><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20v-2a5.5 5.5 0 0 1 11 0v2M14 15.2A4.5 4.5 0 0 1 21.5 18v2"/></>
   };
   return <svg className="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 }
@@ -286,7 +291,7 @@ export default function Heartlist() {
     <div className={`app theme-${state.theme}`}>
       <aside className="sidebar">
         <button className="brand" onClick={() => go("home")}><img className="brand-mark" src={`${BASE_PATH}/logo.svg`} alt=""/><div><b>Clover</b><small>MAKE LOVER CLOSER</small></div></button>
-        <nav>{NAV.map(([id, icon, label]) => <button key={id} className={view === id ? "active" : ""} onClick={() => go(id)}><i>{icon}</i><span>{label}</span>{id === "tasks" && <em>{100 - completed.length}</em>}</button>)}</nav>
+        <nav>{NAV.map(([id, icon, label]) => <button key={id} className={view === id ? "active" : ""} onClick={() => go(id)}><i className="nav-icon"><Icon name={icon}/></i><span>{label}</span>{id === "tasks" && <em>{100 - completed.length}</em>}</button>)}</nav>
         <div className="sidebar-card">
           <span className="avatars"><b>{state.profile.nameA[0]}</b><b>{state.profile.nameB[0]}</b></span>
           <p>{state.profile.nameA} & {state.profile.nameB}</p>
@@ -403,7 +408,7 @@ export default function Heartlist() {
         </div>}
       </main>
 
-      <nav className="bottom-nav">{NAV.map(([id, icon, label]) => <button key={id} className={view === id ? "active" : ""} onClick={() => go(id)}><i>{icon}</i><span>{label}</span></button>)}</nav>
+      <nav className="bottom-nav">{NAV.map(([id, icon, label]) => <button key={id} className={view === id ? "active" : ""} onClick={() => go(id)} aria-label={label}><i className="nav-icon"><Icon name={icon}/></i><span>{label}</span></button>)}</nav>
 
       {selected && <div className="modal-backdrop" onMouseDown={e => e.target === e.currentTarget && setSelected(null)}>
         <div className="sheet">
